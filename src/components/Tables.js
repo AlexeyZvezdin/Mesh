@@ -1,29 +1,39 @@
 import React from "react";
-import { Route, Link } from "react-router-dom";
-import axios from "../axios";
+import { Route, NavLink, Switch, Redirect } from "react-router-dom";
 
+import { Drivers } from "./DataTabs";
+import { Laps } from "./Laps";
 // use links and routes together
 
-function Tables() {
-  let getRacersData = async offset => {
-    let limit = 10;
-
-    let drivers = Array();
-    // const F1Drivers = await axios
-    //   .get(`/drivers.json?limit=${limit}&offset=${offset}`)
-    //   .then(res => {
-    //     drivers = res.data["MRData"]["DriverTable"]["Drivers"];
-    //     console.log(drivers);
-    //   });
-  };
-  getRacersData(10);
+function Tables(props) {
+  console.log(" MY PROPS ", props);
   return (
     <section className="tablesBox">
       <nav className="tablesBox__nav">
-        <Link className="tablesBox__nav_link">Racers</Link>
-        <Link className="tablesBox__nav_link">Rounds</Link>
+        <NavLink
+          to="/drivers"
+          className="tablesBox__nav_link"
+          activeClassName="tablesBox__nav_link__active"
+        >
+          Racers
+        </NavLink>
+        <NavLink
+          to="/laps"
+          className="tablesBox__nav_link"
+          activeClassName="tablesBox__nav_link__active"
+        >
+          Rounds
+        </NavLink>
+        <button onClick={() => console.log(props)}>CLICK</button>
       </nav>
-      <article>Racers or Rounds</article>
+      <article>
+        Racers or Rounds
+        <Switch>
+          <Route path="/drivers" render={() => <Drivers {...props} />} />
+          <Route path="/laps" render={() => <Laps />} />
+          <Redirect to={"/"} />
+        </Switch>
+      </article>
     </section>
   );
 }

@@ -1,35 +1,60 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+
+import store from "./redux/store";
+import { connect } from "react-redux";
+import { fetchDrivers } from "./redux/actions/index";
 
 import("./index.css");
 
-import Tables from "./components/Tables";
+import TableWrapper from "./components/TableWrapper";
 
-function App() {
+const mapStateToProps = state => {
+  return state;
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchDrivers: num => dispatch(fetchDrivers(num))
+  };
+}
+
+function _App(props) {
+  if (props.reducer.driversIsFetched === false) {
+    props.fetchDrivers();
+    return <h1>LOADING...</h1>;
+  }
+
   return (
-    <Router>
-      <div className="App">
-        <header id="header">
-          <h1>F1 Formula stats</h1>
-        </header>
-        <div id="container">
-          <main id="main">
-            <h2>Start editing to see some magic happen!</h2>
-            {/* f1/drivers.json?limit=1 легкий запрос 
+    <div className="App">
+      <header id="header">
+        <h1>F1 Formula stats</h1>
+      </header>
+      <div id="container">
+        <main id="main">
+          <h2>Start editing to see some magic happen!</h2>
+          {/* f1/drivers.json?limit=1 легкий запрос 
             чтобы взять оттуда тотал всех гонщиков для навигации */}
-            {/* circuits: total is equal to rounds? Yes, seems to me */}
-            {/* /f1/2012/20/results.json req to result of round */}
-            {/* /f1/curcuits.json req to rounds, which is total parameter */}
-            {/* table box, then two routes: one is racers with embbed racer, second is   */}
-
-            <Route exact path="/racers" component={Tables} />
-          </main>
-        </div>
+          {/* http://ergast.com/api/f1/drivers/alonso/races.json - подробная инфа */}
+          {/* http://ergast.com/api/f1/2011/5/drivers/alonso/laps/1.json - заезд это lap */}
+          <TableWrapper />
+        </main>
       </div>
-    </Router>
+    </div>
   );
 }
 
+let App = connect(mapStateToProps, mapDispatchToProps)(_App);
+
 const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+ReactDOM.render(
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>,
+  rootElement
+);
