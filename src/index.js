@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Provider } from "react-redux";
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider, connect } from 'react-redux';
 
-import store from "./redux/store";
-import { connect } from "react-redux";
-import { fetchDrivers } from "./redux/actions/index";
+import store from './redux/store';
+import { fetchDrivers } from './redux/actions/index';
 
-import("./index.css");
+import './index.css';
 
-import TableWrapper from "./components/TableWrapper";
+import TableWrapper from './components/TableWrapper';
 
 const mapStateToProps = state => {
   return state;
@@ -22,6 +21,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+// eslint-disable-next-line no-underscore-dangle
 function _App(props) {
   if (props.reducer.driversIsFetched === false) {
     props.fetchDrivers();
@@ -47,9 +47,9 @@ function _App(props) {
   );
 }
 
-let App = connect(mapStateToProps, mapDispatchToProps)(_App);
+const App = connect(mapStateToProps, mapDispatchToProps)(_App);
 
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById('root');
 ReactDOM.render(
   <Provider store={store}>
     <Router>

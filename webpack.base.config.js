@@ -1,13 +1,14 @@
-const path = require("path");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const Dotenv = require("dotenv-webpack");
-const copyWebpackPlugin = require("copy-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+/* eslint-disable */
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
+const copyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const PATHS = {
-  src: path.join(__dirname, "src"),
-  dist: path.join(__dirname, "public"),
-  assets: "assets/"
+  src: path.join(__dirname, 'src'),
+  dist: path.join(__dirname, 'public'),
+  assets: 'assets/'
 };
 
 module.exports = {
@@ -15,13 +16,13 @@ module.exports = {
     paths: PATHS
   },
   entry: {
-    app: path.resolve(__dirname, "./src/index.js")
+    app: path.resolve(__dirname, './src/index.js')
   },
   output: {
-    filename: "index.js",
+    filename: 'index.js',
     // path: path.resolve(__dirname, "../dist"),
     path: PATHS.dist,
-    publicPath: "/"
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -29,7 +30,7 @@ module.exports = {
         test: /\.html$/,
         use: [
           {
-            loader: "html-loader",
+            loader: 'html-loader',
             options: {
               minimize: true,
               removeComments: true,
@@ -42,51 +43,23 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: 'babel-loader'
         }
       },
       {
-        test: /\.css$/,
+        test: /\.(sa|sc|le|c)ss$/,
         use: [
-          "style-loader",
+          'style-loader',
           {
-            loader: MiniCssExtractPlugin.loader
-          },
-          {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: { sourceMap: true }
           },
           {
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
             options: {
               sourceMap: true,
-              config: { path: "postcss.config.js" }
+              config: { path: 'postcss.config.js' }
             }
-          }
-        ]
-      },
-      {
-        test: /\.less$/,
-        exclude: /node_modules/,
-        use: [
-          "style-loader",
-          {
-            loader: MiniCssExtractPlugin.loader
-          },
-          {
-            loader: "css-loader",
-            options: { sourceMap: true }
-          },
-          {
-            loader: "postcss-loader",
-            options: {
-              sourceMap: true,
-              config: { path: "postcss.config.js" }
-            }
-          },
-          {
-            loader: "less-loader",
-            options: { sourceMap: true }
           }
         ]
       },
@@ -94,9 +67,9 @@ module.exports = {
         test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
         use: [
           {
-            loader: "file-loader",
+            loader: 'file-loader',
             options: {
-              name: "[name].[ext]"
+              name: '[name].[ext]'
             }
           }
         ]

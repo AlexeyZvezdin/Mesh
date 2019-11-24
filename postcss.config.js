@@ -1,9 +1,10 @@
+/* eslint-disable */
 module.exports = {
   plugins: [
-    require("autoprefixer"),
-    require("cssnano")({
+    require('autoprefixer'),
+    require('cssnano')({
       preset: [
-        "default",
+        'default',
         {
           discardComments: {
             removeAll: true

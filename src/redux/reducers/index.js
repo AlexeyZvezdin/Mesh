@@ -1,8 +1,8 @@
 // reducer
 
-import { combineReducers } from "redux";
-import singleRacerReducer from "./singleRacerReducer";
-import lapsReducer from "./lapsReducer";
+// import { combineReducers } from 'redux';
+import singleRacerReducer from './singleRacerReducer';
+import lapsReducer from './lapsReducer';
 
 // export default combineReducers({
 //   racersReducer: racersReducer,
@@ -11,7 +11,7 @@ import lapsReducer from "./lapsReducer";
 // });
 
 // below
-import { FETCH_DRIVERS, FETCH_SINGLE_DRIVER, FETCH_LAPS } from "../actionTypes";
+import { FETCH_DRIVERS, FETCH_SINGLE_DRIVER, FETCH_LAPS } from '../actionTypes';
 
 // export const statsReducer = (state = [], action) => {
 //   switch (action.type) {
@@ -42,15 +42,14 @@ export default function(
     driversOffset: 0,
     totalDrivers: null
   },
-  action
+  { type, payload, offset }
 ) {
-  switch (action.type) {
+  switch (type) {
     case FETCH_DRIVERS: {
-      console.log("ACTION ", action);
-      console.log("ACTION LOAD", action);
-      let data = action.payload["MRData"]["DriverTable"]["Drivers"];
-      let offset = action.offset;
-      let total = action.payload["MRData"].total;
+      console.log('ACTION LOAD', payload);
+      const data = payload.MRData.DriverTable.Drivers;
+      // eslint-disable-next-line prefer-destructuring
+      const total = payload.MRData.total;
       return {
         ...state,
         drivers: data,
@@ -61,13 +60,13 @@ export default function(
     }
     case FETCH_SINGLE_DRIVER: {
       return {
-        data: data.payload
+        data: payload
       };
     }
 
     case FETCH_LAPS: {
       return {
-        laps: "fetch laps"
+        laps: 'fetch laps'
       };
     }
     default: {

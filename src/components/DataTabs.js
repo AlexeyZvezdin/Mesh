@@ -1,8 +1,8 @@
-import React from "react";
-import { PrevButton, NextButton } from "./ButtonsDataTabs";
+import React from 'react';
+import { PrevButton, NextButton } from './ButtonsDataTabs';
 
 export const Drivers = props => {
-  console.log(props, " YA TYT");
+  console.log(props, ' YA TYT');
 
   return (
     <React.Fragment>
