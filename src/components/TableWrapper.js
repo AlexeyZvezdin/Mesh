@@ -1,17 +1,17 @@
-import React from "react";
-import { fetchDrivers } from "../redux/actions";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import React from 'react';
+import { fetchDrivers } from '../redux/actions';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import Tables from "./Tables";
+import Tables from './Tables';
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ reducer: { drivers } }) => {
   // return {
   //   racers: state.racers
   // };
 
   return {
-    drivers: state.reducer.drivers
+    drivers: drivers
   };
 };
 

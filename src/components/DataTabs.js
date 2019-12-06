@@ -21,14 +21,12 @@ export const Drivers = props => {
               { url, givenName, familyName, dateOfBirth, nationality },
               index
             ) => (
-              <React.Fragment>
-                <tr ket={index}>
-                  <td>{givenName}</td>
-                  <td>{familyName}</td>
-                  <td>{dateOfBirth}</td>
-                  <td>{nationality}</td>
-                </tr>
-              </React.Fragment>
+              <tr key={index}>
+                <td>{givenName}</td>
+                <td>{familyName}</td>
+                <td>{dateOfBirth}</td>
+                <td>{nationality}</td>
+              </tr>
             )
           )}
         </tbody>
