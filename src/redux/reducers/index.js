@@ -40,23 +40,37 @@ export default function(
     laps: [],
     driversIsFetched: false,
     driversOffset: 0,
+    // Added total just in case I want bottom navigation by number
     totalDrivers: null
   },
-  { type, payload, offset }
+  { type, payload, offset, fromStorage }
 ) {
   switch (type) {
     case FETCH_DRIVERS: {
+      console.log('fromStorage ??? ', fromStorage);
       console.log('ACTION LOAD', payload);
-      const data = payload.MRData.DriverTable.Drivers;
-      // eslint-disable-next-line prefer-destructuring
-      const total = payload.MRData.total;
-      return {
-        ...state,
-        drivers: data,
-        driversIsFetched: true,
-        driversOffset: offset,
-        totalDrivers: total
-      };
+      if (fromStorage) {
+        return {
+          ...state,
+          drivers: payload.DriverTable.Drivers,
+          driversIsFetched: true,
+          driversOffset: offset,
+          totalDrivers: payload.total
+        };
+      } else {
+        // eslint-disable-next-line prefer-destructuring
+        const data = payload.MRData.DriverTable.Drivers;
+        const total = payload.MRData.total;
+        localStorage.setItem(offset, JSON.stringify(payload.MRData));
+
+        return {
+          ...state,
+          drivers: data,
+          driversIsFetched: true,
+          driversOffset: offset,
+          totalDrivers: total
+        };
+      }
     }
     case FETCH_SINGLE_DRIVER: {
       return {

@@ -1,5 +1,6 @@
 import React from 'react';
-import { PrevButton, NextButton } from './ButtonsDataTabs';
+// import { PrevButton, NextButton } from './ButtonsDataTabs';
+import { ControlButton } from './ButtonsDataTabs';
 
 export const Drivers = props => {
   console.log(props, ' YA TYT');
@@ -32,8 +33,10 @@ export const Drivers = props => {
         </tbody>
       </table>
       <div className="navButtons">
-        <PrevButton />
-        <NextButton />
+        <ControlButton direction="back" />
+        <ControlButton direction="forward" />
+        {/* <PrevButton />
+        <NextButton /> */}
       </div>
     </React.Fragment>
   );

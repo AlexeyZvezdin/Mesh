@@ -1,11 +1,12 @@
-import React from "react";
-import { connect } from "react-redux";
-import { fetchDrivers } from "../redux/actions/index";
+import React from 'react';
+import { connect } from 'react-redux';
+import { fetchDrivers } from '../redux/actions/index';
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ reducer }, ownProps) => {
   return {
-    driversOffset: state.reducer.driversOffset,
-    total: state.reducer.totalDrivers
+    driversOffset: reducer.driversOffset,
+    total: reducer.totalDrivers,
+    direction: ownProps.direction
   };
 };
 
@@ -13,31 +14,67 @@ const mapDispatchToProps = dispatch => ({
   fetchDrivers: id => dispatch(fetchDrivers(id))
 });
 
-const _PrevButton = props => {
-  console.log(props, " PREV BUTT");
-  if (props.driversOffset >= 10) {
-    return (
-      <button onClick={() => props.fetchDrivers(props.driversOffset - 10)}>
-        Previous Ten
-      </button>
-    );
+const _ControlButton = ({ fetchDrivers, driversOffset, total, direction }) => {
+  console.log(driversOffset, ' FUNCKING driversOffset');
+  navigator.storage.estimate().then(function(estimate) {
+    console.log(((estimate.usage / estimate.quota) * 100).toFixed(2));
+  });
+  switch (direction) {
+    case 'back': {
+      console.log(direction, ' DIR BUT');
+      if (driversOffset >= 10) {
+        return (
+          <button onClick={() => fetchDrivers(driversOffset - 10)}>
+            Previous Ten
+          </button>
+        );
+      }
+      return <button disabled>Previous Ten</button>;
+    }
+    case 'forward': {
+      if (total - 10 > driversOffset) {
+        return (
+          <button onClick={() => fetchDrivers(driversOffset + 10)}>
+            Next Ten
+          </button>
+        );
+      }
+      return <button disabled>Next Ten</button>;
+    }
+    default: {
+      return 'error';
+    }
   }
-  return <button disabled>Previous Ten</button>;
 };
 
-const _NextButton = props => {
-  console.log(props, " NEXT BUTT");
-  if (props.total - 10 > props.driversOffset) {
-    return (
-      <button onClick={() => props.fetchDrivers(props.driversOffset + 10)}>
-        Next Ten
-      </button>
-    );
-  }
-  return <button disabled>Next Ten</button>;
-};
+const ControlButton = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(_ControlButton);
 
-const PrevButton = connect(mapStateToProps, mapDispatchToProps)(_PrevButton);
-const NextButton = connect(mapStateToProps, mapDispatchToProps)(_NextButton);
+export { ControlButton };
 
-export { PrevButton, NextButton };
+// const _PrevButton = ({ fetchDrivers, driversOffset, total }) => {
+//   if (driversOffset >= 10) {
+//     return (
+//       <button onClick={() => fetchDrivers(driversOffset - 10)}>
+//         Previous Ten
+//       </button>
+//     );
+//   }
+//   return <button disabled>Previous Ten</button>;
+// };
+
+// const _NextButton = ({ fetchDrivers, driversOffset, total }) => {
+//   if (total - 10 > driversOffset) {
+//     return (
+//       <button onClick={() => fetchDrivers(driversOffset + 10)}>Next Ten</button>
+//     );
+//   }
+//   return <button disabled>Next Ten</button>;
+// };
+
+// const PrevButton = connect(mapStateToProps, mapDispatchToProps)(_PrevButton);
+// const NextButton = connect(mapStateToProps, mapDispatchToProps)(_NextButton);
+
+// export { PrevButton, NextButton };

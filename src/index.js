@@ -17,6 +17,7 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    // num is used in demo purpose
     fetchDrivers: num => dispatch(fetchDrivers(num))
   };
 }
@@ -24,6 +25,7 @@ function mapDispatchToProps(dispatch) {
 // eslint-disable-next-line no-underscore-dangle
 function _App(props) {
   if (props.reducer.driversIsFetched === false) {
+    // init app
     props.fetchDrivers();
     return <h1>LOADING...</h1>;
   }

@@ -1,12 +1,11 @@
-import React from "react";
-import { Route, NavLink, Switch, Redirect } from "react-router-dom";
+import React from 'react';
+import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 
-import { Drivers } from "./DataTabs";
-import { Laps } from "./Laps";
+import { Drivers } from './DataTabs';
+import { Laps } from './Laps';
 // use links and routes together
 
 function Tables(props) {
-  console.log(" MY PROPS ", props);
   return (
     <section className="tablesBox">
       <nav className="tablesBox__nav">
@@ -29,9 +28,9 @@ function Tables(props) {
       <article>
         Racers or Rounds
         <Switch>
-          <Route path="/drivers" render={() => <Drivers {...props} />} />
-          <Route path="/laps" render={() => <Laps />} />
-          <Redirect to={"/"} />
+          <Route exact path="/drivers" render={() => <Drivers {...props} />} />
+          <Route exact path="/laps" render={() => <Laps />} />
+          <Redirect to={'/'} />
         </Switch>
       </article>
     </section>

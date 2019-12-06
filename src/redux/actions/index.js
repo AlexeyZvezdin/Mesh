@@ -1,25 +1,44 @@
-import axios from "../../axios";
-import { FETCH_DRIVERS, FETCH_SINGLE_DRIVER, FETCH_LAPS } from "../actionTypes";
+import axios from '../../axios';
+import { FETCH_DRIVERS, FETCH_SINGLE_DRIVER, FETCH_LAPS } from '../actionTypes';
+
+const checkCache = (offset, dispatch) => {
+  let check = localStorage.getItem(offset);
+  console.log(JSON.parse(check), ' WHAT IS CHECK');
+  if (check) {
+    dispatch({
+      type: FETCH_DRIVERS,
+      payload: JSON.parse(check),
+      offset: offset,
+      fromStorage: true
+    });
+    return true;
+  }
+};
 
 export const fetchDrivers = offset => async dispatch => {
   let reqOffset = offset;
   if (!offset) {
     reqOffset = 0;
   }
-  let limit = 10;
-  return await axios
-    .get(`/drivers.json?limit=${limit}&offset=${reqOffset}`)
-    .then(res => {
-      console.log(res, "RES FTW??");
+  if (checkCache(offset, dispatch)) {
+    console.log('CHECK CACHE WORKED OUT SUCCESSFULLY');
+    return;
+  } else {
+    let limit = 10;
+    return await axios
+      .get(`/drivers.json?limit=${limit}&offset=${reqOffset}`)
+      .then(res => {
+        console.log(res, 'RES FTW??');
+        dispatch({
+          type: FETCH_DRIVERS,
+          payload: res.data,
+          offset: reqOffset,
+          fromStorage: false
+        });
 
-      dispatch({
-        type: FETCH_DRIVERS,
-        payload: res.data,
-        offset: reqOffset
+        return res.data;
       });
-
-      return res.data;
-    });
+  }
 };
 
 export const fetchDriverInfo = driverId => async dispatch => {

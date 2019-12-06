@@ -14,13 +14,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     },
     historyApiFallback: true,
     hot: true
-  },
-  devtool: 'cheap-eval-source-map',
-  plugins: [
-    new webpack.SourceMapDevToolPlugin({
-      filename: '[file].map'
-    })
-  ]
+  }
+  // devtool: 'cheap-eval-source-map'
 });
 
 module.exports = new Promise((res, rej) => {

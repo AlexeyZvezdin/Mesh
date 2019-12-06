@@ -6,10 +6,6 @@ import { connect } from 'react-redux';
 import Tables from './Tables';
 
 const mapStateToProps = ({ reducer: { drivers } }) => {
-  // return {
-  //   racers: state.racers
-  // };
-
   return {
     drivers: drivers
   };
