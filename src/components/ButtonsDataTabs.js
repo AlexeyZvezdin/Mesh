@@ -4,8 +4,8 @@ import { fetchDrivers } from '../redux/actions/index';
 
 const mapStateToProps = ({ reducer }, ownProps) => {
   return {
-    driversOffset: reducer.driversOffset,
-    total: reducer.totalDrivers,
+    driversOffset: Number(reducer.driversOffset),
+    total: Number(reducer.totalDrivers),
     direction: ownProps.direction
   };
 };
@@ -21,7 +21,6 @@ const _ControlButton = ({ fetchDrivers, driversOffset, total, direction }) => {
   });
   switch (direction) {
     case 'back': {
-      console.log(direction, ' DIR BUT');
       if (driversOffset >= 10) {
         return (
           <button onClick={() => fetchDrivers(driversOffset - 10)}>

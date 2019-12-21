@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: "Space Mono";
+  font-family: 'Space Mono';
 }
 
 :root {
@@ -24,7 +24,7 @@
 #header h1 {
   padding: 0 30px;
   color: white;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #container {
@@ -86,4 +86,20 @@
   margin: 0 5px;
   border: 1px solid lightgray;
   border-spacing: 20px;
+}
+
+/* offset Input Number Style */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 25px;
 }

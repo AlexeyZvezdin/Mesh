@@ -11,6 +11,8 @@ import './index.css';
 
 import TableWrapper from './components/TableWrapper';
 
+import HooksCakeContainer from './components/HooksCakeContainer';
+
 const mapStateToProps = state => {
   return state;
 };
@@ -34,6 +36,7 @@ function _App(props) {
     <div className="App">
       <header id="header">
         <h1>F1 Formula stats</h1>
+        <HooksCakeContainer />
       </header>
       <div id="container">
         <main id="main">
