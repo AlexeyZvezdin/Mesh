@@ -47,8 +47,8 @@ export default function(
 ) {
   switch (type) {
     case FETCH_DRIVERS: {
-      console.log('fromStorage ??? ', fromStorage);
-      console.log('ACTION LOAD', payload);
+      // console.log('fromStorage ??? ', fromStorage);
+      // console.log('ACTION LOAD', payload);
       if (fromStorage) {
         return {
           ...state,

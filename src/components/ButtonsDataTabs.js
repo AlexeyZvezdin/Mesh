@@ -15,9 +15,11 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const _ControlButton = ({ fetchDrivers, driversOffset, total, direction }) => {
-  console.log(driversOffset, ' FUNCKING driversOffset');
   navigator.storage.estimate().then(function(estimate) {
-    console.log(((estimate.usage / estimate.quota) * 100).toFixed(2));
+    console.log(
+      ((estimate.usage / estimate.quota) * 100).toFixed(2),
+      ' — navigator.storage.estimate()'
+    );
   });
   switch (direction) {
     case 'back': {
